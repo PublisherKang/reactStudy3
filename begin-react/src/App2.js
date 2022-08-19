@@ -1,6 +1,6 @@
 import React, { useRef, useReducer, useMemo, useCallback } from "react";
 import CreateUser from "./CreateUser";
-import UserList from "./UserList";
+import UserList3 from "./UserList3";
 
 const countActiveUsers = (users) => {
   console.log("활성 사용자수 세는중...");
@@ -56,6 +56,20 @@ function reducer(state, action) {
         inputs: initialState.inputs,
         users: state.users.concat(action.user),
       };
+    case "TOGGLE_USER":
+      return {
+        ...state,
+        users: state.users.map((user) =>
+          user.id === action.id ? { ...user, active: !user.active } : user
+        ),
+      };
+
+    case "REMOVE_USER":
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.id),
+      };
+
     default:
       return state;
   }
@@ -87,10 +101,26 @@ const App2 = () => {
           email,
         },
       });
-      console.log(username, email);
+      nextId.current += 1;
     },
     [username, email]
   );
+
+  const onToggle = useCallback((id) => {
+    dispatch({
+      type: "TOGGLE_USER",
+      id,
+    });
+  }, []);
+
+  const onRemove = useCallback((id) => {
+    dispatch({
+      type: "REMOVE_USER",
+      id,
+    });
+  }, []);
+
+  const count = useMemo(() => countActiveUsers(users), [users]);
 
   return (
     <>
@@ -100,8 +130,8 @@ const App2 = () => {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} />
-      <div>활성사용자 수: 0</div>
+      <UserList3 users={users} onToggle={onToggle} onRemove={onRemove} />
+      <div>활성사용자 수: {count}</div>
     </>
   );
 };
