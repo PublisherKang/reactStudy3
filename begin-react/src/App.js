@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import "./App.css";
 import Counter from "./Counter";
 import CreateUser from "./CreateUser";
@@ -93,7 +93,8 @@ function App() {
     );
   };
 
-  const count = countActiveUsers(users);
+  const count = useMemo(() => countActiveUsers(users), [users]);
+  //useMemo(), 첫번쨰 파라미터는 콜백함수, 두번째 파라미터는 배열 [] deps
 
   return (
     <Wrapper>

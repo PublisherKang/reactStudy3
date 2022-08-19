@@ -11,7 +11,7 @@ const User = ({ user, onRemove, onToggle }) => {
   // }, [user]);
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }); // deps값을 설정하지 않은 경우.
 
   // useEffect 첫번째 파라미터는 함수, 두번째 파라미터는 배열 [] deps
