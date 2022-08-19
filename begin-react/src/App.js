@@ -2,6 +2,7 @@ import "./App.css";
 import Counter from "./Counter";
 import Hello from "./Hello";
 import InputSample from "./InputSample";
+import UserList from "./UserList";
 import Wrapper from "./Wrapper";
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
       <Counter />
       <hr />
       <InputSample />
+      <hr />
+      <UserList />
     </Wrapper>
   );
 }
