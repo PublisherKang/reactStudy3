@@ -38,13 +38,13 @@ function App() {
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setInputs({
+      setInputs((inputs) => ({
         ...inputs,
         [name]: value,
-      });
+      }));
     },
 
-    [inputs]
+    []
   );
 
   const [users, setUsers] = useState([
@@ -98,7 +98,7 @@ function App() {
       email,
     };
 
-    setUsers([...users, user]);
+    setUsers((users) => users.concat(user));
 
     setInputs({
       username: "",
@@ -106,29 +106,23 @@ function App() {
     });
 
     nextId.current += 1;
-  }, [users, username, email]);
+  }, [username, email]);
 
   // const onRemove = (id) => {
   //   setUsers(users.filter((user) => user.id !== id));
   // };
 
-  const onRemove = useCallback(
-    (id) => {
-      setUsers(users.filter((user) => user.id !== id));
-    },
-    [users]
-  );
+  const onRemove = useCallback((id) => {
+    setUsers((users) => users.filter((user) => user.id !== id));
+  }, []);
 
-  const onToggle = useCallback(
-    (id) => {
-      setUsers(
-        users.map((user) =>
-          user.id === id ? { ...user, active: !user.active } : user
-        )
-      );
-    },
-    [users]
-  );
+  const onToggle = useCallback((id) => {
+    setUsers((users) =>
+      users.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  }, []);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
   //useMemo(), 첫번쨰 파라미터는 콜백함수, 두번째 파라미터는 배열 [] deps

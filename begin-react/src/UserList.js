@@ -1,6 +1,6 @@
 import React from "react";
 
-const User = ({ user }) => {
+const User = React.memo(function User({ user }) {
   return (
     <div>
       <b>
@@ -8,7 +8,7 @@ const User = ({ user }) => {
       </b>
     </div>
   );
-};
+});
 
 const UserList = () => {
   const users = [
@@ -58,4 +58,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default React.memo(UserList);
