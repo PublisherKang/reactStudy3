@@ -9,6 +9,11 @@ import UserList2 from "./UserList2";
 import UserList3 from "./UserList3";
 import Wrapper from "./Wrapper";
 
+const countActiveUsers = (users) => {
+  console.log("활성 사용자수 세는중...");
+  return users.filter((user) => user.active).length;
+};
+
 function App() {
   const name = "React";
   const style = {
@@ -88,6 +93,8 @@ function App() {
     );
   };
 
+  const count = countActiveUsers(users);
+
   return (
     <Wrapper>
       <Hello name="홍길동" navi="나비" color={style} isPecial />
@@ -110,6 +117,8 @@ function App() {
       <UserList2 users={users} />
       <hr />
       <UserList3 users={users} onRemove={onRemove} onToggle={onToggle} />
+
+      <div>활성 사용자수 : {count}</div>
     </Wrapper>
   );
 }
