@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useCallback } from "react";
 import "./App.css";
 import Counter from "./Counter";
 import CreateUser from "./CreateUser";
@@ -28,13 +28,24 @@ function App() {
   });
 
   const { username, email } = inputs;
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
+  // const onChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setInputs({
+  //     ...inputs,
+  //     [name]: value,
+  //   });
+  // };
+  const onChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setInputs({
+        ...inputs,
+        [name]: value,
+      });
+    },
+
+    [inputs]
+  );
 
   const [users, setUsers] = useState([
     {
@@ -64,7 +75,23 @@ function App() {
   ]);
 
   const nextId = useRef(5); // 현재 지정된 배열수 이상이어야 한다.
-  const onCreate = () => {
+  // const onCreate = () => {
+  //   const user = {
+  //     id: nextId.current,
+  //     username,
+  //     email,
+  //   };
+
+  //   setUsers([...users, user]);
+
+  //   setInputs({
+  //     username: "",
+  //     email: "",
+  //   });
+
+  //   nextId.current += 1;
+  // };
+  const onCreate = useCallback(() => {
     const user = {
       id: nextId.current,
       username,
@@ -79,19 +106,29 @@ function App() {
     });
 
     nextId.current += 1;
-  };
+  }, [users, username, email]);
 
-  const onRemove = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
-  };
+  // const onRemove = (id) => {
+  //   setUsers(users.filter((user) => user.id !== id));
+  // };
 
-  const onToggle = (id) => {
-    setUsers(
-      users.map((user) =>
-        user.id === id ? { ...user, active: !user.active } : user
-      )
-    );
-  };
+  const onRemove = useCallback(
+    (id) => {
+      setUsers(users.filter((user) => user.id !== id));
+    },
+    [users]
+  );
+
+  const onToggle = useCallback(
+    (id) => {
+      setUsers(
+        users.map((user) =>
+          user.id === id ? { ...user, active: !user.active } : user
+        )
+      );
+    },
+    [users]
+  );
 
   const count = useMemo(() => countActiveUsers(users), [users]);
   //useMemo(), 첫번쨰 파라미터는 콜백함수, 두번째 파라미터는 배열 [] deps
