@@ -1,4 +1,5 @@
 import "./App.css";
+import Counter from "./Counter";
 import Hello from "./Hello";
 import Wrapper from "./Wrapper";
 
@@ -15,6 +16,8 @@ function App() {
       <div style={style}>{name}</div>
       <div className="box">박스</div>
       <Hello />
+      <hr />
+      <Counter />
     </Wrapper>
   );
 }
