@@ -1,10 +1,23 @@
 import React, { useEffect } from "react";
 
 const User = ({ user, onRemove, onToggle }) => {
+  // useEffect(() => {
+  //   console.log("user값이 설정됨");
+  //   console.log(user);
+  //   return () => {
+  //     console.log("user가 바뀌기 전");
+  //     console.log(user);
+  //   };
+  // }, [user]);
+
   useEffect(() => {
-    console.log("컴포넌트가 화면에 나타남");
-    return () => console.log("컴포넌트가 화면에서 사라짐");
-  }, []);
+    console.log(user);
+  }); // deps값을 설정하지 않은 경우.
+
+  // useEffect 첫번째 파라미터는 함수, 두번째 파라미터는 배열 [] deps
+
+  // useEffect에 사용하는 상태나, props가 있다면 deps []값을 설정해주어야 한다.
+  // useEffect에 deps [] 값을 제외하면 리랜더링 될때마다 값을 호출한다.
 
   return (
     <div>
