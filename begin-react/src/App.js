@@ -1,6 +1,7 @@
 import { useRef, useState, useMemo, useCallback } from "react";
 import "./App.css";
 import Counter from "./Counter";
+import Counter2 from "./Counter2";
 import CreateUser from "./CreateUser";
 import Hello from "./Hello";
 import InputSample from "./InputSample";
@@ -135,6 +136,8 @@ function App() {
       <Hello />
       <hr />
       <Counter />
+      <hr />
+      <Counter2 />
       <hr />
       <InputSample />
       <hr />

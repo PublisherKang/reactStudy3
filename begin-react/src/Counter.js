@@ -32,6 +32,7 @@ const Counter = () => {
 
   return (
     <div>
+      <p>useState를 사용한 상태 업데이트</p>
       <h1>{number}</h1>
       <button onClick={onIncrease}>+1</button>
       <button onClick={onDecrease}>-1</button>
