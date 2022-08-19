@@ -6,6 +6,7 @@ import Hello from "./Hello";
 import InputSample from "./InputSample";
 import UserList from "./UserList";
 import UserList2 from "./UserList2";
+import UserList3 from "./UserList3";
 import Wrapper from "./Wrapper";
 
 function App() {
@@ -35,21 +36,25 @@ function App() {
       id: 1,
       username: "이대감",
       email: "eee@naver.com",
+      active: true,
     },
     {
       id: 2,
       username: "송대감",
       email: "fff@naver.com",
+      active: false,
     },
     {
       id: 3,
       username: "김대감",
       email: "ggg@naver.com",
+      active: false,
     },
     {
       id: 4,
       username: "박대감",
       email: "hhh@naver.com",
+      active: true,
     },
   ]);
 
@@ -69,6 +74,18 @@ function App() {
     });
 
     nextId.current += 1;
+  };
+
+  const onRemove = (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
+
+  const onToggle = (id) => {
+    setUsers(
+      users.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
   };
 
   return (
@@ -91,6 +108,8 @@ function App() {
         onCreate={onCreate}
       />
       <UserList2 users={users} />
+      <hr />
+      <UserList3 users={users} onRemove={onRemove} onToggle={onToggle} />
     </Wrapper>
   );
 }
