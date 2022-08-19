@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const InputSample = () => {
   // const [text, setText] = useState("");
@@ -6,6 +6,9 @@ const InputSample = () => {
     name: "",
     nickname: "",
   });
+
+  //ref를 사용해 focus 매서드 사용하기
+  const nameInput = useRef();
 
   const { name, nickname } = inputs;
 
@@ -30,11 +33,19 @@ const InputSample = () => {
       name: "",
       nickname: "",
     });
+
+    nameInput.current.focus();
   };
 
   return (
     <div>
-      <input name="name" placeholder="이름" onChange={onChange} value={name} />
+      <input
+        name="name"
+        placeholder="이름"
+        onChange={onChange}
+        value={name}
+        ref={nameInput}
+      />
       <input
         name="nickname"
         placeholder="닉네임"
