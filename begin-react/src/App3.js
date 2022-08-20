@@ -1,7 +1,7 @@
 import React, { useRef, useReducer, useMemo, useCallback } from "react";
 import CreateUser from "./CreateUser";
+import useInputs from "./hooks/useInputs";
 import UserList3 from "./UserList3";
-
 
 const countActiveUsers = (users) => {
   console.log("활성 사용자수 세는중...");
@@ -9,11 +9,6 @@ const countActiveUsers = (users) => {
 };
 
 const initialState = {
-  inputs: {
-    username: "",
-    email: "",
-  },
-
   users: [
     {
       id: 1,
@@ -76,21 +71,16 @@ function reducer(state, action) {
   }
 }
 
-const App2 = () => {
+const App3 = () => {
+  const [{ username, email }, onChange, reset] = useInputs({
+    username: "",
+    email: "",
+  });
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const nextId = useRef(5);
 
   const { users } = state;
-  const { username, email } = state.inputs;
-
-  const onChange = useCallback((e) => {
-    const { name, value } = e.target;
-    dispatch({
-      type: "CHANGE_INPUT",
-      name,
-      value,
-    });
-  }, []);
 
   const onCreate = useCallback(
     (e) => {
@@ -102,9 +92,11 @@ const App2 = () => {
           email,
         },
       });
+
+      reset();
       nextId.current += 1;
     },
-    [username, email]
+    [username, email, reset]
   );
 
   const onToggle = useCallback((id) => {
@@ -137,4 +129,4 @@ const App2 = () => {
   );
 };
 
-export default App2;
+export default App3;
