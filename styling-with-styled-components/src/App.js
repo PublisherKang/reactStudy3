@@ -47,6 +47,26 @@ const App = () => {
             Button
           </Button>
         </ButtonGroup>
+        <ButtonGroup>
+          <Button outline size="large">
+            Button
+          </Button>
+          <Button outline color="gray">
+            Button
+          </Button>
+          <Button color="pink" size="small" outline>
+            Button
+          </Button>
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button fullWidth>Button</Button>
+          <Button color="gray" fullWidth>
+            Button
+          </Button>
+          <Button color="pink" fullWidth>
+            Button
+          </Button>
+        </ButtonGroup>
       </AppBlock>
     </ThemeProvider>
   );
