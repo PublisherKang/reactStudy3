@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { keyframes, css } from "styled-components";
 import Button from "./Button";
 
 // styled keyframes 유틸
@@ -23,6 +23,26 @@ const slideUp = keyframes`
   }
 `;
 
+const fadeOut = keyframes`
+from{
+  opacity: 1;
+}
+
+to{
+  opacity: 0;
+  }
+`;
+
+const slideDown = keyframes`
+  from{
+    transform: translateY(0);
+  }
+  
+  to{
+    transform: translateY(200px);
+  }
+`;
+
 const DarkBackground = styled.div`
   position: fixed;
   left: 0;
@@ -35,6 +55,12 @@ const DarkBackground = styled.div`
   background: rgba(0, 0, 0, 0.8);
 
   animation: ${fadeIn} 0.25s ease-out forwards;
+
+  ${(props) =>
+    props.disappear &&
+    css`
+      animation-name: ${fadeOut};
+    `}
 `;
 
 const DialogBlock = styled.div`
@@ -53,6 +79,12 @@ const DialogBlock = styled.div`
   }
 
   animation: ${slideUp} 0.25s ease-out forwards;
+
+  ${(props) =>
+    props.disappear &&
+    css`
+      animation-name: ${slideDown};
+    `}
 `;
 
 const ButtonGroup = styled.div`
@@ -79,11 +111,23 @@ const Dialog = ({
   onCancel,
   visible,
 }) => {
-  if (!visible) return null; // null로 처음에 보여지지 않는다.
+  const [animate, setAnimate] = useState(false);
+  const [localVisible, setLocalvisible] = useState(visible);
+
+  useEffect(() => {
+    //visible 값이 true => false 되는걸 감지
+    if (localVisible && !visible) {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 250);
+    }
+    setLocalvisible(visible);
+  }, [localVisible, visible]);
+
+  if (!animate && !visible) return null; // null로 처음에 보여지지 않는다.
   //Appjs 에서 visible true를 넘겨 받으면 보여진다.
   return (
-    <DarkBackground>
-      <DialogBlock>
+    <DarkBackground disappear={!visible}>
+      <DialogBlock disappear={!visible}>
         <h3>{title}</h3>
         <p>{children}</p>
         <ButtonGroup>
