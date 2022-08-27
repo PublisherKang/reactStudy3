@@ -1,6 +1,27 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Button from "./Button";
+
+// styled keyframes 유틸
+const fadeIn = keyframes`
+  from{
+    opacity: 0;
+  }
+
+  to{
+    opacity: 1;
+  }
+`;
+
+const slideUp = keyframes`
+  from{
+    transform: translateY(200px);
+  }
+
+  to{
+    transform: translateY(0);
+  }
+`;
 
 const DarkBackground = styled.div`
   position: fixed;
@@ -12,6 +33,8 @@ const DarkBackground = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.8);
+
+  animation: ${fadeIn} 0.25s ease-out forwards;
 `;
 
 const DialogBlock = styled.div`
@@ -28,6 +51,8 @@ const DialogBlock = styled.div`
   p {
     font-size: 1.125rem;
   }
+
+  animation: ${slideUp} 0.25s ease-out forwards;
 `;
 
 const ButtonGroup = styled.div`
