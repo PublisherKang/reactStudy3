@@ -2,6 +2,21 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { darken, lighten } from "polished"; //polished 라이브러리
 
+const colorStyles = css`
+  ${({ theme, color }) => {
+    const selected = theme.palette[color];
+    return css`
+      background: ${selected};
+      &:hover {
+        background: ${lighten(0.1, selected)};
+      }
+      &:hover {
+        background: ${darken(0.1, selected)};
+      }
+    `;
+  }}
+`;
+
 const StyledButton = styled.button`
   display: inline-flex;
   outline: none;
@@ -19,19 +34,7 @@ const StyledButton = styled.button`
   font-size: 1rem;
 
   /* 색상 */
-
-  ${(props) => {
-    const selected = props.theme.palette[props.color];
-    return css`
-      background: ${selected};
-      &:hover {
-        background: ${lighten(0.1, selected)};
-      }
-      &:hover {
-        background: ${darken(0.1, selected)};
-      }
-    `;
-  }}
+  ${colorStyles}
 
   /* 기타 */
   & + & {
@@ -39,8 +42,12 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ children, ...rest }) => {
-  return <StyledButton {...rest}>{children}</StyledButton>;
+const Button = ({ children, color, ...rest }) => {
+  return (
+    <StyledButton color={color} {...rest}>
+      {children}
+    </StyledButton>
+  );
 };
 
 Button.defaultProps = {
