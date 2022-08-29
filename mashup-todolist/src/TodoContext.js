@@ -14,12 +14,12 @@ const initialTodos = [
   {
     id: 3,
     text: 'Context 만들기',
-    done: true,
+    done: false,
   },
   {
     id: 4,
     text: '기능 구현하기',
-    done: true,
+    done: false,
   },
 ];
 
@@ -54,13 +54,25 @@ export function TodoProvider({ children }) {
 
 // useContext 커스텀 hook "사용하기 편허게 export 함수를 만든다."
 export function useTodoState() {
-  return useContext(TodoStateContext);
+  const context = useContext(TodoStateContext);
+  if (!context) {
+    throw new Error('Cannot find TodoProvider');
+  }
+  return context;
 }
 
 export function useTodoDispatch() {
-  return useContext(TodoDispatchContext);
+  const context = useContext(TodoDispatchContext);
+  if (!context) {
+    throw new Error('Cannot find TodoProvider');
+  }
+  return context;
 }
 
 export function useTodoNextId() {
-  return useContext(TodoNextIdContext);
+  const context = useContext(TodoNextIdContext);
+  if (!context) {
+    throw new Error('Cannot find TodoProvider');
+  }
+  return context;
 }
