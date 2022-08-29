@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useRef } from 'react';
 
 const initialTodos = [
   {
@@ -38,12 +38,29 @@ function todoReducer(state, action) {
 
 const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
+const TodoNextIdContext = createContext();
 
 export function TodoProvider({ children }) {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
+  const nextId = useRef(5);
   return (
     <TodoStateContext.Provider value={state}>
-      <TodoDispatchContext.Provider value={dispatch}>{children}</TodoDispatchContext.Provider>
+      <TodoNextIdContext.Provider value={nextId}>
+        <TodoDispatchContext.Provider value={dispatch}>{children}</TodoDispatchContext.Provider>
+      </TodoNextIdContext.Provider>
     </TodoStateContext.Provider>
   );
+}
+
+// useContext 커스텀 hook "사용하기 편허게 export 함수를 만든다."
+export function useTodoState() {
+  return useContext(TodoStateContext);
+}
+
+export function useTodoDispatch() {
+  return useContext(TodoDispatchContext);
+}
+
+export function useTodoNextId() {
+  return useContext(TodoNextIdContext);
 }
