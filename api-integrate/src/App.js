@@ -1,5 +1,6 @@
 import React from "react";
 import Users from "./Users";
+import UsersCustom from "./UsersCustom";
 import UsersReducer from "./UsersReducer";
 
 const App = () => {
@@ -8,6 +9,8 @@ const App = () => {
       <Users />
       <hr />
       <UsersReducer />
+      <hr />
+      <UsersCustom />
     </div>
   );
 };
