@@ -9,7 +9,7 @@ async function getUsers() {
   return response.data;
 }
 
-const UsersCustom = () => {
+const User = () => {
   const [state, refetch] = useAsync(getUsers, [], true);
   const { loading, data: users, error } = state;
 
@@ -31,4 +31,4 @@ const UsersCustom = () => {
   );
 };
 
-export default UsersCustom;
+export default User;
