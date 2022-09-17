@@ -55,7 +55,7 @@ export const reducerUtils = {
 
 // 비동기 관련 액션들을 처리하는 리듀수 만들기
 // type은 액션의 타입, key는 상태의 key (예: posts, post)
-export default handleAsyncActions = (type, key) => {
+export const handleAsyncActions = (type, key) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
   return (state, action) => {
     switch (action.type) {
